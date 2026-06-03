@@ -1,3 +1,4 @@
+from error_notebook import save_error_word, show_all_error
 from __future__ import annotations
 
 import tkinter as tk

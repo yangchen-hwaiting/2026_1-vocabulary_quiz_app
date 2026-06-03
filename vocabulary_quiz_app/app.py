@@ -1,3 +1,4 @@
+from error_notebook import save_error_word, show_all_error
 from __future__ import annotations
 
 import random
@@ -39,8 +40,8 @@ class VocabularyQuizApp:
         self.check_button = ttk.Button(buttons, text="채점", command=self.check_current)
         self.check_button.pack(side=tk.LEFT, padx=6)
         ttk.Button(buttons, text="다음", command=self.next_word).pack(
-            side=tk.LEFT, padx=6
-        )
+            side=tk.LEFT, padx=6)
+        ttk.Button(buttons, text="오답장보기", command=show_all_error).pack(side=tk.LEFT, padx=6)
 
         ttk.Label(root, textvariable=self.feedback_var).pack(pady=8)
         ttk.Label(root, textvariable=self.score_var).pack()
@@ -66,6 +67,7 @@ class VocabularyQuizApp:
             self.score += 1
             self.feedback_var.set("정답입니다!")
         else:
+            save_error_word(self.current.term, self.current.meaning)
             self.feedback_var.set(f"오답입니다. 정답: {self.current.meaning}")
         self.score_var.set(f"Score: {self.score}/{self.total}")
         self.check_button.state(["disabled"])
