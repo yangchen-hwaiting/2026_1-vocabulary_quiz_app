@@ -1,4 +1,5 @@
 from __future__ import annotations
+from vocabulary_quiz_app.main import make_weekly_error_report
 
 import random
 import tkinter as tk
@@ -39,6 +40,10 @@ class VocabularyQuizApp:
         self.check_button = ttk.Button(buttons, text="채점", command=self.check_current)
         self.check_button.pack(side=tk.LEFT, padx=6)
         ttk.Button(buttons, text="다음", command=self.next_word).pack(
+            side=tk.LEFT, padx=6
+        )
+        # 新增：주간오답통계보기 按钮
+        ttk.Button(buttons, text="주간오답통계보기", command=make_weekly_error_report).pack(
             side=tk.LEFT, padx=6
         )
 
