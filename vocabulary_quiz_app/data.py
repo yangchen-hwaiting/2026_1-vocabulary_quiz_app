@@ -14,3 +14,5 @@ WORDS: list[Word] = [
     Word(term="summer", meaning="여름"),
     Word(term="water", meaning="물"),
 ]
+favorite_words = []
+FAV_FILE = "favorite_words.txt"

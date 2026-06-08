@@ -1,9 +1,7 @@
 from __future__ import annotations
-
 import random
 import tkinter as tk
-
-from tkinter import ttk, font
+from tkinter import ttk, font, messagebox
 
 from vocabulary_quiz_app.quiz_logic import Word, check_answer, draw_word
 
@@ -38,9 +36,9 @@ class VocabularyQuizApp:
         buttons.pack(pady=6)
         self.check_button = ttk.Button(buttons, text="채점", command=self.check_current)
         self.check_button.pack(side=tk.LEFT, padx=6)
-        ttk.Button(buttons, text="다음", command=self.next_word).pack(
-            side=tk.LEFT, padx=6
-        )
+        ttk.Button(buttons, text="다음", command=self.next_word).pack(side=tk.LEFT, padx=6)
+        # 新增：单词收藏按钮
+        ttk.Button(buttons, text="단어 즐겨찾기", command=self.add_current_word_to_favorite).pack(side=tk.LEFT, padx=6)
 
         ttk.Label(root, textvariable=self.feedback_var).pack(pady=8)
         ttk.Label(root, textvariable=self.score_var).pack()
@@ -69,3 +67,20 @@ class VocabularyQuizApp:
             self.feedback_var.set(f"오답입니다. 정답: {self.current.meaning}")
         self.score_var.set(f"Score: {self.score}/{self.total}")
         self.check_button.state(["disabled"])
+
+   
+    def add_current_word_to_favorite(self):
+        from vocabulary_quiz_app.data import favorite_words, FAV_FILE
+
+        target_word = random.choice(self.words)
+        if target_word in favorite_words:
+            messagebox.showwarning("안내", f"{target_word.term} 는 이미 즐겨찾기에 있습니다!")
+            return
+
+        favorite_words.append(target_word)
+        try:
+            with open(FAV_FILE, "a", encoding="utf-8") as f:
+                f.write(f"단어: {target_word.term} | 뜻: {target_word.meaning}\n")
+            messagebox.showinfo("성공", f"{target_word.term} 를 즐겨찾기에 추가했습니다!")
+        except Exception:
+            messagebox.showerror("오류", "파일 저장에 실패했습니다.")
