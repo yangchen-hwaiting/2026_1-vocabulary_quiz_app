@@ -1,5 +1,6 @@
-from error_notebook import save_error_word, show_all_error
 from __future__ import annotations
+from error_notebook import save_error_word, show_all_error
+
 
 import random
 import tkinter as tk
@@ -8,7 +9,7 @@ from tkinter import ttk, font
 
 from vocabulary_quiz_app.quiz_logic import Word, check_answer, draw_word
 
-
+https://github.com/yangchen-hwaiting/2026_1-vocabulary_quiz_app/blob/add_error_notebook/vocabulary_quiz_app/app.py
 class VocabularyQuizApp:
     def __init__(self, root: tk.Tk, words: list[Word]) -> None:
         self.words = words
